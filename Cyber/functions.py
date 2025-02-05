@@ -45,13 +45,13 @@ class Functions:
         textbox.configure(state="disabled")
         self.canvas.create_window(650, y + 110, window=textbox)
 
-        btn_manage = ctk.CTkButton(self.canvas, text="Manage", width=50,command=lambda:FManager(name))
+        btn_manage = ctk.CTkButton(self.canvas, text="Manage", width=50,command=lambda:FManager(self.GetPath()))
         self.canvas.create_window(280, y + 80, window=btn_manage)
 
         btn_open = ctk.CTkButton(self.canvas, text="  Open  ", width=50)
         self.canvas.create_window(280, y + 120, window=btn_open)
 
-        btn_run = ctk.CTkButton(self.canvas, text="  Run  ",text_color="White", width=50)
+        btn_run = ctk.CTkButton(self.canvas, text="  Run  ",text_color="White", width=50,command=lambda:self.IsRun())
         self.canvas.create_window(360, y + 120, window=btn_run)
 
         btn_delete = ctk.CTkButton(self.canvas, text="Delete", width=50,command=lambda:self.remove(name))
@@ -90,7 +90,12 @@ class Functions:
 
         if not self.datalist:
             ctk.CTkLabel(self.canvas,text="no projects found").place(x=0,y=20)
-
+    def GetPath(self):
+        """Devuelve la ruta del proyecto seleccionado."""
+        for data in self.datalist:
+            return data.get("Project_path", "")
+        return ""
+    
     def searchBy(self, index="",element=""):
         self.clear()
         y_position = 20
@@ -139,3 +144,11 @@ class Functions:
     def remove(self, currentname):
         deleteWindow(currentname,lambda: self.remove_obj(currentname))
         self.Get()
+    def IsRun(self):
+        for data in self.datalist:
+            try:
+                if data.get("RunFile"):
+                    os.startfile(data.get("RunFile"))
+            except Exception as e:
+                ErrorWindow(f"Error al abrir el archivo: {e}")
+                return

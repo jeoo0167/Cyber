@@ -11,7 +11,6 @@ class Window():
         ctk.set_appearance_mode("dark")
         self.window = ctk.CTk()
         self.window.geometry(Size)
-        self.window.resizable(False,False)
         self.container = ctk.CTkFrame(self.window,bg_color="#333333")
         self.container.pack(fill=ctk.BOTH, expand=True)
         self.window.iconbitmap('Assets\\CyberLogo.ico')
@@ -52,7 +51,13 @@ class ErrorWindow(Window):
         tx1.configure(state="disabled")  
         frame.grid_rowconfigure(0, weight=1)
         frame.grid_columnconfigure(0, weight=1)
-        
+class AlertWindow(Window):
+    def __init__(self,title, message,size=None):
+        default_size = "400x150"
+        super().__init__(size if size else default_size, title)
+        ctk.CTkLabel(self.container, text=message, font=("Arial", 20, 'bold')).place(x=20, y=20)
+        ctk.CTkButton(self.container, width=50, text="Ok", command=self.window.destroy).place(x=250, y=100)
+        self.Run()
 class deleteWindow(Window):
     def __init__(self, Currentname, on_confirm):
         super().__init__("600x200", f"Delete {Currentname}?")
@@ -258,23 +263,31 @@ class ConfigWindow(Window):
         self.PathChanged = True
         
     def crearteFile(self):
-        print(f"Window:{self.checkboxes}")
-        if self.checkboxes == None or self.checkboxes == 0:
-            ErrorWindow("Please select type")
-        else:
-            os.system(f"mkdir {self.dir}")
-            print(dir)
-            for file in self.CreatedFiles:
-                if file.get()== "":
-                    return
-                os.system(f"echo. >{self.dir}\\{file.get()}")
-            for file in self.AddedFiles:
-                if file == "":
-                    return
-                os.system(f"copy {file} {self.dir}")
-                print(f"{file} {self.dir}")
-            for file in self.Assets:
-                if file == "":
-                    return
-                os.system(f"mkdir {self.dir}\\{self.assets}")
-                os.system(f"copy {file} {self.dir}\\{self.assets}")
+        try: 
+            print(f"Window:{self.checkboxes}")
+            if self.checkboxes == None or self.checkboxes == 0:
+                ErrorWindow("Please select type")
+            else:
+                os.system(f"mkdir {self.dir}")
+                print(dir)
+                for file in self.CreatedFiles:
+                    if file.get()== "":
+                        return
+                    os.system(f"echo. >{self.dir}\\{file.get()}")
+                for file in self.AddedFiles:
+                    if file == "":
+                        return
+                    os.system(f"copy {file} {self.dir}")
+                    print(f"{file} {self.dir}")
+                for file in self.Assets:
+                    if file == "":
+                        return
+                    os.system(f"mkdir {self.dir}\\{self.assets}")
+                    os.system(f"copy {file} {self.dir}\\{self.assets}")
+                AlertWindow("Success", "Project created successfully!")
+                import Apps
+                Apps.Hub()
+                self.window.destroy()
+        except Exception as e:
+            ErrorWindow(f"Error creando el proyecto: {e}")
+        

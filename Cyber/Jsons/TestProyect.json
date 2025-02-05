@@ -1,19 +1,20 @@
 {
-    "Asset Folder name":"Assets",
-    "Description":"test for file manager\n",
-    "Files":[
+    "Asset Folder name": "Assets",
+    "Description": "test for file manager\n",
+    "Files": [
         "test1.txt",
         "test2.txt",
         "test3.py",
         "test4.py"
     ],
-    "Files_path":[
+    "Files_path": [
         "C:\\Users\\jesus\\OneDrive\\Documentos\\Escritorio\\test4.json"
     ],
-    "Icon_path":"C:\\Users\\jesus\\OneDrive\\Documentos\\Escritorio\\Cyber\\Assets\\Img2.png",
-    "Index":"Electronic Window",
-    "Project_path":"C:\\Users\\jesus\\OneDrive\\Documentos\\Escritorio\\Cyber\\TestProyect",
-    "Type":"type: Other",
-    "date":"03/02/2025",
-    "name":"TestProyect"
+    "Icon_path": "C:\\Users\\jesus\\OneDrive\\Documentos\\Escritorio\\Cyber\\Assets\\Img2.png",
+    "Index": "Electronic Window",
+    "Project_path": "C:\\Users\\jesus\\OneDrive\\Documentos\\Escritorio\\Cyber\\TestProyect",
+    "Type": "type: Other",
+    "date": "03/02/2025",
+    "name": "TestProyect",
+    "RunFile": "C:\\Users\\jesus\\OneDrive\\Documentos\\Escritorio\\Cyber\\TestProyect\\test4.py"
 }

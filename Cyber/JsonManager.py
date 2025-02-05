@@ -39,8 +39,8 @@ class Create_JData:
             file.write(self.output)
 class JsonManager:
     def JWrite(file,data):
-        with open(file,"w") as dt:
-            dt.write(data)
+        with open(file, "w") as f:
+            json.dump(data, f, indent=4)
     def JRead():
         data_list = []
         for Findfile in os.listdir(Create_JData.path):
